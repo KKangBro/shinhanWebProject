@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>속성 선택자</title>
+<style>
+	ul {
+		list-style: none;
+	}
+	
+	li {
+		width: 120px;
+		display: inline-block;
+		margin: 10px;
+	}
+	
+	li a {
+		padding: 5px 20px;
+		font-size: 14px;
+		color: blue;
+		text-decoration: none;
+	}
+	
+	a[href] {
+		background: yellow;
+	}
+	
+	.mystyle {
+		border: 1px solid green;
+	}
+	
+	a[class] {
+		color: red;
+	}
+	
+	/* or처럼 묶고싶으면 group선택자(,) 이용해야함. */
+	a[href="https://www.google.com"], a[href="https://www.naver.com"] {
+		font-size: 1.5em;
+	}
+</style>
+</head>
+
+<body>
+	<ul>
+		<li><a class="mystyle">메인 메뉴 : </a></li>
+		<li><a href="#" class="mystyle">메뉴 1</a></li>
+		<li><a href="https://www.google.com" target="_blank">메뉴 2</a></li>
+		<li><a href="https://www.naver.com" target="_blank" class="mystyle">메뉴 3</a></li>
+		<li><a href="#">메뉴 4</a></li>
+	</ul>
+</body>
+</html>

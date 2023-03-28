@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>이미지 삽입하기</title>
+</head>
+<body>
+	<h1>바빠 시리즈</h1>
+	<div>
+		<div>상대경로</div>
+		<img src="images/cover.jpg" alt="빠른연산">
+		<img src="../images/muffin.png" alt="머핀">
+	</div>
+	<hr>
+	<div>
+		<div>절대경로</div> <!-- 절대 경로가 더 바람직함. -->
+		<img src="/shinhanWebProject/html5-css3-master/03/images/cover.jpg" alt="빠른연산">
+		<img src="http://localhost:9999//shinhanWebProject/html5-css3-master/03/images/cover.jpg" alt="빠른연산">
+		<img src="/shinhanWebProject/html5-css3-master/images/muffin.png" alt="머핀">
+	</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	console.log("1. head에 script 추가.. 로드되기전에 해야할 때")
+	//alert("1번");
+	//document.querySelector("#here").innerHTML="head에서 변경";
+</script>
+</head>
+<body>
+<script type="text/javascript">
+	console.log("2. body에 script 추가.. 비추천")
+</script>
+
+	<h1>JavaScript 시작</h1>
+	
+	<div id="here">여기</div>
+	
+<script type="text/javascript">
+	console.log("3. body 뒷부분에 script 추가.. 로드되고 나서 해야할 때")
+	document.querySelector("#here").innerHTML="body끝에서 변경";
+</script>
+</body>
+</html>
