@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!--  -->
+<style>
+	h1 {
+		background-color: orange;
+	}
+	
+</style>
+</head>
+<body>
+	<h1 style="color: blue;">JS 문법.. 반복문</h1>
+	<button id="btn1">for문</button>
+	<button id="btn2">for문2</button>
+	<button id="btn3">for문3</button>
+	<button id="btn4">for문4</button>
+	
+	<hr>
+	<div id="here">요기요</div>
+	
+	<script>
+		var target = document.querySelector("#here");
+		document.querySelector("#btn1").onclick = call; //callback함수. //call()이렇게 하면 버튼 누르지도 않았는데 이미 실행돼있음.
+		document.querySelector("#btn2").onclick = call2;
+		document.querySelector("#btn3").onclick = call3;
+		document.querySelector("#btn4").onclick = call4;
+		
+		function call4() {
+			var arr = [100,200,300];
+			var sum = 0;
+			for(let data of arr) {
+				sum += data;
+			}
+			alert(sum);
+		}
+		
+		function call3() {
+			target.innerHTML = "for문 연습";
+			// 자바는 배열에 같은 타입만 가능
+			// 자바스크립트는 배열에 여러타입 저장 가능
+			// number, string, boolean, undefined, function, object
+
+			var arr = [ 100, 3.14, "JavaScript", 10 > 20, function() { alert("나는 함수다"); },
+				[ 10, 20, 30 ], {"이름" : "홍길동",	age : 20	} ];
+
+			for (let i in arr) {
+				target.innerHTML += "<br>" + arr[i] + " -- " + typeof (arr[i]);
+
+				if (typeof (arr[i]) === "function") {
+					arr[i](); // ()에 의해 function 실행된다.
+				}
+
+				if (i == arr.length - 1) {
+					alert(arr[i].이름 + " : " + arr[i].age);
+				}
+			}
+		}
+		
+		
+		
+		function call2() {
+			var now = new Date().getTime(); // 현재 시각을 long으로 받기
+			var num = 1;
+			for (var i = 0; new Date().getTime() < now + 1000; i++) {
+				
+			}
+			console.log(i);
+			
+		}
+
+		function call() {
+			target.innerHTML = "for문 연습";
+			// 자바는 배열에 같은 타입만 가능
+			// 자바스크립트는 배열에 여러타입 저장 가능
+			// number, string, boolean, undefined, function, object
+
+			var arr = [ 100, 3.14, "JavaScript", 10 > 20,
+				function() { alert("나는 함수다"); }, [ 10, 20, 30 ], {"이름" : "홍길동", age : 20} ];
+
+			for (let i = 0; i < arr.length; i++) {
+				target.innerHTML += "<br>" + arr[i] + " -- " + typeof (arr[i]);
+
+				if (typeof (arr[i]) === "function") {
+					arr[i](); // ()에 의해 function 실행된다.
+				}
+
+				if (i == arr.length - 1) {
+					alert(arr[i].이름 + " : " + arr[i].age);
+				}
+			}
+		}
+	</script>
+	
+</body>
+</html>

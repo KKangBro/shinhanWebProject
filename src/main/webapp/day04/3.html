@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JavaScript 문법</title>
+<script type="text/javascript">
+	a = 100; // 실행시 a가 선언되고 값이 할당된다. (global)
+	var b = 300; // (global)
+
+	// 변수를 선언하였지만 초기화되지는 않음.
+	console.log(c); // 호이스팅(var로 선언된 변수를 가장 위로 올린다.. function도 올림.. 선언만)
+
+	function call() {
+		a2 = 200; // 실행시 a2가 선언되고 값이 할당된다. (global)
+		var b2 = 400; // (local)
+		// var 붙이는 게 좋음. 지역 변수화. global 최소화.
+	}
+
+	function call2() {
+		document.querySelector("#here").innerHTML = a + a2 + b + c;
+	}
+
+	var c = 1000; // (global)
+	console.log(c);
+
+	function call3() {
+		const pi = 3.14;
+		// 상수는 변경 불가.. pi = 3.141592;
+		document.querySelector("#here").innerHTML = pi;
+
+		var score = 100;
+		score++;
+		document.querySelector("#here").innerHTML += "<br>점수는 " + score;
+
+		var str = "<ul>";
+		for (let i = 0; i <= 10; i++) {
+			str += `<li>숫자는 ${i} </li>` // ECMAScript6 지원 백틱(`)
+		}
+		// let는 block{}에서만 유효
+		// global 이거나 var이면 접근 가능.. str += "<li>!! 숫자는 " + i + "</li>"
+		str += "</ul>"
+		document.querySelector("#here").innerHTML += str;
+		
+	}
+</script>
+</head>
+<body>
+	<h1>JavaScript 문법</h1>
+	<button onclick="call()">변수 선언 scope 1</button>
+	<button onclick="call2()">변수 선언 scope 2</button>
+	<button onclick="call3()">var, let, const</button>
+	<hr>
+	<div id="here">여기</div>
+</body>
+</html>
