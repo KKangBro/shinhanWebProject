@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>5Object</title>
+<style>
+	button {
+		margin: 5px 0px;
+	}
+</style>
+<script>
+	window.onload = function() {
+		btn1.onclick = call1;
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		btn5.onclick = call5;
+		btn6.onclick = call6;
+		btn7.onclick = call7;
+		btn8.onclick = call8;
+		btn9.onclick = call9;
+		btn10.onclick = call10;
+	}
+	
+	var salary = 1000;
+	var emp = {
+		empid:100,
+		'first name':'스티븐',
+		salary:20000,
+		score:[100,99,88],
+		work:function(){ alert("열심히 일하기"); },
+		eat:function(food){ display.innerHTML += '<br>' + this['first name'] + '이 ' + food + ' 낼름~<br>급여는 ' + this.salary; }
+	};
+	
+	
+	function call1() {
+		display.innerHTML = emp.empid;
+		display.innerHTML += '<br>'+ emp['first name'];
+		display.innerHTML += '<br>'+ emp['salary'];
+		display.innerHTML += '<br>'+ emp.salary;
+		display.innerHTML += '<br>'+ ('salary' in emp);
+		display.innerHTML += '<br>'+ ('department' in emp);
+	}
+	
+	function call2() {
+		display.innerHTML = '';
+		for (var prop in emp) {
+			display.innerHTML += '<br>' + prop + ' ' + emp[prop];
+		}
+	}
+
+	function call3() {
+		display.innerHTML = '';
+		for (var prop in window) {
+			display.innerHTML += '<br>' + prop + ' ' + window[prop];
+		}
+	}
+
+	function call4() {
+		emp.eat('닭강정');
+		window.alert('alert 함수 사용하기~'); // window. 은 생략 가능
+	}
+
+	function call5() {
+		display.innerHTML = '';
+		var arr = [100, 99, 88];
+		for (var idx in arr) { // 배열이면 index, object이면 속성을 의미한다.
+			display.innerHTML += '<br>' + idx + ' ' + arr[idx];
+		}
+	}
+
+	function call6() {
+		display.innerHTML = '';
+		var student = {stdId : 100};
+		student.이름 = "박명수";
+		student.나이 = 40;
+		student.취미 = prompt('취미 뭐냐','쪼쪼댄스');
+		
+		delete student.나이;
+		
+		for (var prop in student) {
+			display.innerHTML += '<br>' + prop + ' ' + student[prop];
+		}
+	}
+
+	function call7() {
+
+	}
+
+	function call8() {
+
+	}
+
+	function call9() {
+
+	}
+
+	function call10() {
+
+	}
+</script>
+</head>
+<body>
+	<h1>JS Object</h1>
+	<button id="btn1">Object선언, 참조(직접)</button>
+	<button id="btn2">Object선언, 참조(반복문)</button>
+	<br>
+	<button id="btn3">window object</button>
+	<button id="btn4">Object의 함수 속성 호출</button>
+	<br>
+	<button id="btn5">Object선언, 참조</button>
+	<button id="btn6">Object선언, 참조</button>
+	<br>
+	<button id="btn7">Object선언, 참조</button>
+	<button id="btn8">Object선언, 참조</button>
+	<br>
+	<button id="btn9">Object선언, 참조</button>
+	<button id="btn10">Object선언, 참조</button>
+	<hr>
+	<div id="display">^오^</div>
+</body>
+</html>
