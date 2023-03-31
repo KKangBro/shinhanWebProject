@@ -15,6 +15,7 @@ List<EmpVO> empList = empService.selectAll();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <title>직원 목록</title>
 <style type="text/css">
 	@font-face {
@@ -31,7 +32,7 @@ List<EmpVO> empList = empService.selectAll();
 	}
 	
 	* {
-		font-family: 'ChosunCentennial';
+		font-family: 'EF_watermelonSalad';
 		letter-spacing: 0.2em;
 	}
 	
@@ -40,7 +41,6 @@ List<EmpVO> empList = empService.selectAll();
 	}
 	
 	h1 {
-		font-family: 'EF_watermelonSalad';
 		text-align: center;
 		margin: 30px auto 5px;
 	}
@@ -51,42 +51,104 @@ List<EmpVO> empList = empService.selectAll();
 	}
 	
 	table {
-		clear: both;
+		width: 100%;
 		background-color: #f0f0f0;
-		
 	}
 	
 	thead {
 		background-color: lightblue;
-		
 	}
 	
-	thead > tr > th {
+	th {
+		font-family: 'ChosunCentennial';
+		text-align: center;
 		padding: 8px;
 	}
 	
 	tbody > tr:hover {
-		background-color: lightgreen;
-		
+		background-color: lightgreen !important;
 	}
 	
-	th {
-		line-height: 1.5em;
+	td {
+		text-align: center;
+		line-height: 2em;
 	}
 	
-	.btn-outline-success {
-		font-family: 'EF_watermelonSalad';
+	#insertBtn {
 		float: right;
 		margin-bottom: 10px;
 	}
+	
+	#btn1, #btn2 {
+		float: left;
+		margin-right: 5px;
+	}
 
 </style>
-
+<script>
+	var flag1 = 1;
+	var flag2 = 1;
+	var flag3 = 1;
+	$(function() {
+		$('#btn1').click(func_btn1);
+		$('#btn2').click(func_btn2);
+		$("th").click(rowSelect);
+	});
+	
+	function func_btn1() {
+		flag1 *= -1;
+		if(flag1 < 0)
+			$('tbody > tr:nth-child(2n)').css('background-color', '#F2DCDB');
+		else
+			$('tbody > tr').css('background-color', '#f0f0f0');
+	}
+	
+	function func_btn2() {
+		//body > div > table > tbody > tr:nth-child(1) > th:nth-child(2)
+		//body > div > table > tbody > tr:nth-child(17) > th:nth-child(2)
+		
+		flag2 *= -1;
+		if(flag2 < 0)
+			$('tbody > tr > td:nth-child(2):contains("S")').parent().css({'color': 'red', 'font-weight': 'bolder', 'background-color': '#DDD9C3'});
+		else
+			$('tbody > tr').css({'color': 'black', 'font-weight': '400', 'background-color': '#f0f0f0'});
+	}
+	
+	function rowSelect() {
+		flag3 *= -1;
+		if(flag3 < 0) {
+			//내가 클릭한 th가 몇번째인가?
+			var trNum = $(this).closest("th").prevAll().length;
+			console.log(trNum);
+			
+			var a = $("tbody tr").each(function(index, item) {
+				var col = $(item).find("td:nth-child(" + (trNum+1) + ")");
+				console.log(col);
+				// 되돌리기(기존 선택을 clear)
+				$(item).find("td").css("background-color", "#f0f0f0");
+				// 신규 선택의 색깔 바꾸기
+				$(col).css("background-color", "#DEFFCF");
+			});
+		} else {
+			$('tbody > tr > td').css({'color': 'black', 'font-weight': '400', 'background-color': '#f0f0f0'});
+		}
+		
+	}
+	
+	
+	
+</script>
 </head>
 <body>
 	<h1>직원 목록</h1>
+	<div id="divBtn">
+		<button id="btn1" class="btn btn-outline-success">짝수번째 줄</button>
+		<button id="btn2" class="btn btn-outline-success">이름이 S로 시작하는 튜플</button>
+	</div>
 	<div>
-		<a href="emp_insert.html" type="button" class="btn btn-outline-success">신규 직원 등록</a>
+		<a href="emp_insert.html" type="button" id="insertBtn" class="btn btn-outline-success">신규 직원 등록</a>
+		<br>
+		<br>
 		<table>
 			<thead>
 				<tr>
@@ -106,17 +168,17 @@ List<EmpVO> empList = empService.selectAll();
 			<tbody>
 				<%for(EmpVO emp : empList) { %>
 				<tr>
-					<th><%=emp.getEmployee_id() %></th>
-					<th><%=emp.getFirst_name() %></th>
-					<th><%=emp.getLast_name() %></th>
-					<th><%=emp.getEmail() %></th>
-					<th><%=emp.getPhone_number() %></th>
-					<th><%=emp.getHire_date() %></th>
-					<th><%=emp.getJob_id() %></th>
-					<th><%=emp.getSalary() %></th>
-					<th><%=emp.getCommission_pct() %></th>
-					<th><%=emp.getManager_id() %></th>
-					<th><%=emp.getDepartment_id() %></th>
+					<td><%=emp.getEmployee_id() %></td>
+					<td><%=emp.getFirst_name() %></td>
+					<td><%=emp.getLast_name() %></td>
+					<td><%=emp.getEmail() %></td>
+					<td><%=emp.getPhone_number() %></td>
+					<td><%=emp.getHire_date() %></td>
+					<td><%=emp.getJob_id() %></td>
+					<td><%=emp.getSalary() %></td>
+					<td><%=emp.getCommission_pct() %></td>
+					<td><%=emp.getManager_id() %></td>
+					<td><%=emp.getDepartment_id() %></td>
 				</tr>
 				<%} %>
 			</tbody>

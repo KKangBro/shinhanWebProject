@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>4 jQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	var arr=[];
+	arr.push({'stdId':100, 'stdName':'박명수', 'homePage':'http://daum.net'});
+	arr.push({'stdId':200, 'stdName':'유재석', 'homePage':'http://localhost:9999/shinhanWebProject/day02/empSelect.jsp'});
+	arr.push({'stdId':300, 'stdName':'정형돈', 'homePage':'../day02/emp_insert.html'});
+	
+	$(function() {
+		var output = '<ul>';
+		$.each(arr, function(index, item) {
+			output += `<li>${item.stdName}의 <a href='${item.homePage}' target='_blank'>홈페이지</a> </li>`;
+		});
+		$('#here').html(output + '</ul>');
+		
+		var output = '<ul>';
+		arr.forEach(function(item, index) {
+			output += `<li>${item.stdName}의 <a href='${item.homePage}' target='_blank'>홈페이지</a> </li>`;
+		});
+		output + '</ul>';
+		here.innerHTML += output;
+		
+	});
+</script>
+</head>
+<body>
+	<div id="here">
+	</div>
+</body>
+</html>

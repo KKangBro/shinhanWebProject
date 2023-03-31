@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD Xhtml 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>미션3</title>
+	<style>
+		body {
+			font-size:9pt;	
+		}
+		
+		div {
+			border: 1px solid #999999;
+			margin:20px;
+			margin-bottom:20px;
+		}
+		
+		div div {
+			border: 1px dotted #CCC;
+			font-size:20px;	
+		}
+		
+		button {
+			margin: 0px 0px 20px 20px;
+		}
+		
+	</style>
+	<script>
+		window.onload = function(){
+			start = setInterval(() => { changeImg() }, 1000);
+			
+			
+			document.querySelector('#btn').onclick = btnFunc;
+		};
+		
+		function btnFunc() {
+			clearInterval(start);
+		}
+		
+		var cnt = 1;
+		function changeImg() {
+			var img = document.getElementById("img1");
+			var src = `images/img${(cnt++) % 10 + 1}.jpg`;
+			
+			console.log(src);
+			img.setAttribute('src', src);
+			
+			//cnt++;
+			//if(cnt>10) cnt = 1;
+		}
+		
+		
+	</script> 
+
+</head>
+
+<body>	
+	<div> 
+		<h4>미션3 - 1초에 한번씩 이미지를 순차적으로 변환시켜 주세요.
+		<br> 단, 이미지는 10개가 있습니다. 10개까지 출력된 경우, 다시 첫번째 이미지부터 출력시켜주세요.</h4>
+		<div id="panel">
+			<img id="img1" src="images/img1.jpg" alt="이미지">
+		</div>
+		<button id="btn">^오^</button>
+	</div>   
+</body>
+</html>

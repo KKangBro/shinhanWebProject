@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>event에 대하여..</title>
+<style>
+
+</style>
+<script>
+	window.onload = function() {
+		// =을 만나면 오른쪽을 먼저 해석
+		// 이벤트핸들러(이벤트리스너)를 왼쪽에 이벤트 속성에 할당한다.
+		// 함수를 수행하는게 아님! 이벤트가 발생하면 함수가 호출된다!
+		btn1.onclick = call;
+		btn2.onclick = call2;
+		btn3.onclick = call3;
+		btn4.onclick = call4;
+		form1.onsubmit = validation;
+		form2.onsubmit = validation2;
+		btnSend.onclick = validation3;
+	};
+	
+	function validation3() {
+		var jumin1 = document.querySelector('#jumin1').value;
+		var jumin2 = document.querySelector('#jumin2').value;
+		if(jumin1.length != 6 || jumin2.length != 7){
+			alert('주민번호 입력 오류!');
+			return;
+		}
+		location.href = `2.jsp?jumin=${jumin1}&jumin2=${jumin2}`;
+	}
+	
+	function validation2() {
+		var jumin1 = document.querySelector('#jumin1').value;
+		var jumin2 = document.querySelector('#jumin2').value;
+		if(jumin1.length != 6 || jumin2.length != 7){
+			alert('주민번호 입력 오류!');
+			return false;
+		}
+	}
+	
+	function validation() {
+		alert("validation");
+		
+		var userId = document.querySelector("#userId").value;
+		if (userId.length < 5) {
+			alert("아이디가 5자리 이상이어야함.");
+			return false; // 서버에 전송하는 행위(default)를 취소
+		}
+		
+		var userPw1 = document.querySelector("#userPw1").value;
+		var userPw2 = document.querySelector("#userPw2").value;
+		if (userPw1 != userPw2) {
+			alert("비밀번호 확인해줘잉");
+			document.querySelector("#userPw1").focus();
+			document.querySelector("#userPw2").value='';
+			return false; // 서버에 전송하는 행위(default)를 취소
+		}
+		
+		// 만약에 inline방식으로 작성된 경우는: onsubmit="return validation()" 이렇게 써야함.
+	}
+	
+	function call4() {
+		here.innerHTML = this.innerHTML;
+		btn2.onclick();
+	}
+	
+	function call3(event) {
+		var str = '';
+		for(let key in event){
+			str += '<br>' + key + ' ==> ' + event[key];
+		}
+		here.innerHTML = str;
+	}
+	
+	function call2() {
+		here.innerHTML = this.innerHTML;
+		
+		this.style.backgroundColor = "orange";
+		btn1.style.backgroundColor = "lightgreen";
+		
+		btn1.onclick = null;
+	}
+	
+	function call() {
+		alert('이벤트 handler 넣기');
+		here.innerHTML = this.innerHTML;
+	}
+	
+	function focusChange(obj) {
+		console.log(obj.value);
+	}
+	
+	function genderCheck(j2value) {
+		var man = document.querySelector('input[value="man"]');
+		var woman = document.querySelector('input[value="woman"]');
+		man.removeAttribute("checked");
+		woman.removeAttribute("checked");
+		
+		var gender = j2value.substr(0, 1);
+		if (gender == '1' || gender == '3') {
+			man.setAttribute("checked", "checked");
+		} else if (gender == '2' || gender == '4') {
+			woman.setAttribute("checked", "checked");
+		} else {
+			alert("주민번호 입력 오류!");
+		}
+	}
+	
+</script>
+
+
+</head>
+<body>
+	<h1>Event.. event속성(on~~)<br>event handler, event listener(function)</h1>
+	<hr>
+	<button id="btn1">이벤트 handler 넣기</button>
+	<button id="btn2">이벤트 handler 제거</button>
+	<button id="btn3">이벤트 속성</button>
+	<button id="btn4">이벤트 강제 호출</button>
+	<button id="btn5">default 이벤트(form -- onsubmit)</button><br>
+	<form id="form1" action="1.jsp"> <!-- onsubmit="return validation()" -->
+		<label>아이디: <input id="userId" name="userId" value="hr"></label><br>
+		<label>비밀번호: <input id="userPw1" name="userPw1" value="1234"></label><br>
+		<label>비밀번호 확인: <input id="userPw2" name="userPw2" value="1234"></label><br>
+		<input type="submit" value="서버로 전송">
+	</form>
+	<hr>
+	<form id="form2" name="form" action="2.jsp">
+		<fieldset>
+			<legend>개인정보</legend>
+			<label for="jumin1">주민번호</label>
+			<input type="text" name="jumin1" id="jumin1" size="6" maxlength="6" onkeyup="focusChange(this);" />
+			- 
+			<input type="text" name="jumin2" id="jumin2" size="7" maxlength="7" onblur="genderCheck( this.value , form )" /> <br /> <br />
+			<div id="display"></div>
+			<label for="gender">성별</label>
+			<input type="radio" name="gender" value="man" checked="checked" disabled="disabled" />남자
+			<input type="radio" name="gender" value="woman" disabled="disabled" />여자
+			<input type="submit" value="check"/>
+			<input id="btnSend" type="button" value="check"/>
+		</fieldset>
+	</form>
+	<hr>
+	<div id="here">요기요</div>
+</body>
+</html>

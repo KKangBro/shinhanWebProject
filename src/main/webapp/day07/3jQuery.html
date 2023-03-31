@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3 jQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<!-- https://developers.google.com/speed/libraries?hl=ko#jquery -->
+<script>
+	window.onload = function() {
+		//alert('onload1');
+	};
+	
+	window.onload = function() { // 덮어쓰기됨.
+		//alert('onload2');
+	};
+	
+	$(document).ready(function() {
+		//alert('jquery load1');
+	});
+	
+	$(document).ready(function() {
+		//alert('jquery load2');
+	});
+	
+	$(function() {
+		//alert('jquery load3');	
+		
+		$('h1').css('background-color','lightblue');
+		$('h1,p').css({'color': 'red', 'font-size': '1.5em'});
+		
+		$('input[type="text"]').css('background-color', 'lightgray');
+		$('input[type="text"]').val('Hi');
+		
+		$('input[type="search"][value]').css('background-color', 'lightblue');
+		
+		var subject = $('select > option:selected').val();
+		//alert(subject);
+		$('h1:first').html(subject);
+		$('h1:last').html(subject);
+	});
+	
+</script>
+</head>
+<body>
+	<h1>jQuery</h1>
+	<h1>jQuery</h1>
+	<h1>jQuery</h1>
+	<h1>jQuery</h1>
+	<h1>jQuery</h1>
+	<p>jQuery 문법</p>
+	<p>jQuery 문법</p>
+	<p>jQuery 문법</p>
+	<p>jQuery 문법</p>
+	<p>jQuery 문법</p>
+
+	<select>
+		<option>HTML5</option>
+		<option>CSS3</option>
+		<option>JavaScript</option>
+		<option selected>제이쿼리</option>
+	</select>
+	
+	<br>
+	<input id="me" value="999">
+	<input type="text">
+	<input type="text" value="jQuery">
+	<input type="text"><br>
+	<input type="search" value="jQuery">
+	<input type="search"><br>
+	<input type="password">
+	<input type="number">
+</body>
+</html>
