@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3 jQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	$(function(){
+		$('#btn1').click(call);
+		$('#btn2').click(call2);
+		$('#btn3').click(call3);
+		$('#btn4').click(call4);
+		$('#btn5').click(call5);
+	});
+	
+	var obj = {'background-color':'lightblue', 'color':'white'};
+	var obj2 = {'background-color':'pink', 'color':'white', 'border':'3px dotted gray'};
+	
+	function call() {
+		$('p:nth-of-type(even)').css(obj);
+		$('p:nth-of-type(odd)').css(obj2);
+	}
+
+	function call2() {
+		$('p').filter(':nth-of-type(even)').css(obj);
+		$('p').filter(':nth-of-type(odd)').css(obj2);
+	}
+
+	function call3() {
+		// .end()는 한단계 위로 올린다.
+		$('p').css('font-size', '30px')
+			.filter(':nth-of-type(even)').css(obj)
+			.end().filter(':nth-of-type(odd)').css(obj2);
+	}
+	
+	function call4() {
+		$('p').eq(2).css('color', 'red');
+		$('p').eq(-2).css('background-color', 'gray');
+		$('p').first().css('color', 'blue');
+		$('p').last().css('color', 'green');
+	}
+	
+	function call5() {
+		// XML: root는 1개, 구조적 문서, 계층 구조. 태그 이름은 마음대로
+		var str = `
+			<friends>
+				<friend>
+					<name>박명수</name>
+					<major>컴공</major>
+				</friend>
+				<friend>
+					<name>정형돈</name>
+					<major>경제</major>
+				</friend>
+				<friend>
+					<name>노홍철</name>
+					<major>영문</major>
+				</friend>
+			</friends>
+		`;
+
+		var obj = $.parseXML(str);
+		var str = '<ul>';
+		console.log(obj);
+		$(obj).find('friend').each(function(index, item){
+			var name = $(item).find('name').text();
+			console.log(index, name);
+			str += `<li>${index+1}번째 친구는 ${name}~</li>`;
+		});
+		str += '</ul>';
+		$('#here').html(str);
+
+	}
+
+</script>
+<style>
+
+</style>
+</head>
+<body>
+	<h1>jQuery 연습3</h1>
+	<button id="btn1">filter 없이</button>
+	<button id="btn2">filter2</button>
+	<button id="btn3">filter3</button>
+	<button id="btn4">eq</button>
+	<button id="btn5">XML 파싱</button>
+	<p>p1</p>
+	<p>p2</p>
+	<p>p3</p>
+	<p>p4</p>
+	<p>p5</p>
+	<div id="here">요기요</div>
+	<hr>
+	<div style="border: 5px dotted green; padding: 20px;">
+		<span>비활성화</span>
+		<button>활성화하기</button>
+	</div>
+	<hr>
+	<button id="btn6">속성값 얻기</button><br>
+	<img src="../html5-css3-master/01/images/watch.jpg" alt="시계사진">
+	<img src="../html5-css3-master/01/images/first.jpg" alt="꽃">
+
+	<script>
+		$(function(){
+
+			$('div > button').click(function(){
+				// $('button:last').click(function(){
+				// alert('마지막 버튼');
+
+				var t = $(this).text();
+				if(t === '활성화하기') {
+					$(this).text('비활성화하기');
+					$(this).parent().find('span').text('활성화');
+				} else if(t === '비활성화하기') {
+					$(this).text('활성화하기');
+					$(this).parent().find('span').text('비활성화');
+				}
+				
+			});
+
+
+			$('#btn6').click(function(){
+				// querySelector(), querySelectorAll() 처럼..
+				var attr1 = $('img').attr('src');
+				console.log('단 건 출력: '+attr1);
+
+				$('img').each(function(index, item) {
+					console.log($(item).attr('src'));
+
+				});
+			});
+
+		});
+
+	</script>
+</body>
+</html>

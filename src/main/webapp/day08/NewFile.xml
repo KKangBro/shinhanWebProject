@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<friends>
+	<friend>
+		<name>박명수</name>
+		<major>컴공</major>
+	</friend>
+	<friend>
+		<name>정형돈</name>
+		<major>경제</major>
+	</friend>
+	<friend>
+		<name>노홍철</name>
+		<major>영문</major>
+	</friend>
+</friends>

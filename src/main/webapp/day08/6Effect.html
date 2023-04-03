@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>6 Effect</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	
+  $("#btn1").click(function(){
+    $("p").show(1000, function(){
+      $('#here').html($('#btn1').text());
+    });
+  });
+  
+	function call(){
+		$('#here').html($(this).text());
+	}
+  
+  $("#btn2").click(function(){
+	// 현재 this는 button이다.
+    // call함수에서 this는 p이다.
+    // 나는 call함수에서 this가 button이고자 한다.
+    // call함수의 this 변경할때 bind()를 이용한다.
+    $("p").hide(1000, call.bind(this));
+  });
+
+  $("#btn3").click(function(){
+    $("p").toggle(1000, call.bind(this));
+  });
+
+  $("#btn4").click(function(){
+    $("#container").fadeIn(1000, call.bind(this));
+  });
+
+  $("#btn5").click(function(){
+    $("#container").fadeOut(1000, call.bind(this));
+  });
+
+  $("#btn6").click(function(){
+    $("#container").fadeToggle(1000, call.bind(this));
+  });
+
+});
+</script>
+</head>
+<body>
+  <div id="here" style="font-size: 3em; font-weight: bolder;">요기요</div>
+  <button id="btn1">Show</button>
+  <button id="btn2">Hide</button>
+  <button id="btn3">Toggle</button>
+  <button id="btn4">fadeIn</button>
+  <button id="btn5">fadeOut</button>
+  <button id="btn6">fadeToggle</button>
+  <hr>
+  <p>This is a paragraph with little content.</p>
+  <p>This is another small paragraph.</p>
+  <hr>
+  <div id="container">
+    <div id="div1" style="width:80px;height:80px;background-color:red;"></div><br>
+    <div id="div2" style="width:80px;height:80px;background-color:green;"></div><br>
+    <div id="div3" style="width:80px;height:80px;background-color:blue;"></div>
+  </div>
+
+</body>
+</html>

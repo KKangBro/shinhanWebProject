@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2 jQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	$.noConflict(); // $를 더이상 사용하지않음을 의미
+
+	// 문서가 load 후에 function() 수행한다 의 의미이다.
+	jQuery(document).ready(function() {});
+	jQuery(function() {
+
+		jQuery('#btn1').click(function(){
+			jQuery('p:nth-of-type(odd)').css('background-color', 'pink');
+		});
+
+		jQuery('#btn2').click(function(){
+			jQuery('p').each(function(index, item){
+				jQuery(item).addClass('myStyle' + (index % 2 + 1));
+			});
+		});
+
+		jQuery('#btn3').click(function(){
+			jQuery('p').removeClass('myStyle1');
+			jQuery('p').removeClass('myStyle2');
+		});
+
+		jQuery('#btn4').click(function(){
+			var obj = {};
+			obj.myname = '홍길동';
+			obj.age = 20;
+
+			var obj2 = {'address':'서울시 마포구', 'phone': '010-1111-2222'};
+			jQuery.extend(obj, obj2, {'major':'컴공'});
+
+			console.log(obj);
+
+			var str = '<ul>';
+			jQuery.each(obj, (key, item) => { // 다음과 같음. jQuery.each(obj, function(key, item){
+				str += `<li>${key} -- ${item}</li>`;
+			});
+			str += '</ul>';
+			jQuery('#here').html(str);
+
+		});
+	});
+	
+</script>
+<style>
+	/* p들 중에서만 짝수 번째 */
+	p:nth-of-type(even) {
+		background-color: lightgreen;
+	}
+
+	.myStyle1 {
+		border: 5px dotted blue;
+	}
+
+	.myStyle2 {
+		border: 5px dotted red;
+	}
+</style>
+</head>
+<body>
+	<h1>jQuery 연습2</h1>
+	<button id="btn1">홀수 찾기</button>
+	<button id="btn2">addClass</button>
+	<button id="btn3">removeClass</button>
+	<button id="btn4">Object 확장</button>
+	<p>p1</p>
+	<p>p2</p>
+	<p>p3</p>
+	<p>p4</p>
+	<p>p5</p>
+	<div id="here">요기요</div>
+</body>
+</html>

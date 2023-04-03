@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>5 jQuery Event 연결</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<style>
+	.enter {
+		background-color: orange;
+		color: blue;
+	}
+	.leave {
+		background-color: pink;
+		color: red;
+	}
+</style>
+<script>
+	$(function(){
+		/* 
+		// on() : 이벤트와 이벤트핸들러를 연결
+		$('h1').on('mouseenter', function(){
+			$(this).removeClass('leave');
+			$(this).addClass('enter');
+		});
+		$('h1').on('mouseleave', function(){
+			$(this).removeClass('enter');
+			$(this).addClass('leave');
+		});
+		 */
+		/* 
+		var obj = {};
+		obj.mouseenter = function(){
+			$(this).removeClass('leave');
+			$(this).addClass('enter');
+		};
+
+		obj.mouseleave = function(){
+			$(this).removeClass('enter');
+			$(this).addClass('leave');
+		};
+		$('h1').on(obj);
+		 */
+		
+		$('h1').hover(function(){
+			$(this).removeClass('leave');
+			$(this).addClass('enter');
+		}, function(){
+			$(this).removeClass('enter');
+			$(this).addClass('leave');
+		});
+		 
+
+		$('div.A').on('click', function(){
+			// var h = $(this).find('h1').text();
+			// var p = $(this).find('p').text();
+
+			// this는 context이다. selector가 적용하는 범위이다.
+			var h = $('h1', this).text();
+			var p = $('p', this).text();
+			alert(h+' -- '+p);
+		});
+
+	});
+</script>
+<style>
+	div {
+		border: 1px solid gray;
+		padding: 10px;
+	}
+</style>
+</head>
+<body>
+	<h1>jQuery event 연습</h1>
+	<div class="A">
+		<h1>나는 h1</h1>
+		<p>현재 객체</p>
+	</div>
+	<hr>
+	<form id="frm" action="1.jsp">
+		<label>아이디 : <input type="text" name="userid"></label>
+		<label>비밀번호 : <input type="password" name="userpw"></label>
+		<input type="submit" value="서버로 전송">
+	</form>
+	<hr>
+	<button id="btn1">버튼1</button>
+	<button id="btn2">버튼2</button>
+	<hr>
+	<label><input type="checkbox" id="all-check">ALL</label>
+	<div id="check-item">
+		<label><input type="checkbox">A Option</label>
+		<label><input type="checkbox">B Option</label>
+		<label><input type="checkbox">C Option</label>
+	</div>
+
+<script>
+	$(function(){
+		$('#all-check').change(function(){
+			var bool = null;
+			if(this.checked) {
+				bool = true;
+			} else {
+				bool = false;
+			}
+			$('#check-item').children().children().prop('checked', bool);
+		});
+
+
+		$('#btn1').click(function(){
+			alert('btn1을 누름');
+		});
+
+		$('#btn2').click(function(){
+			$('#btn1').trigger('click');
+		});
+		
+		
+
+		$('p').on('click', function(){
+			alert('나는 p다~');
+			console.log(event.pageX, event.pageY);
+			event.stopPropagation(); // 이벤트 전달막기(캡처링, 버블링 취소)
+		});
+
+		$('#frm').on('submit', function(event){
+			var id = $('input[name="userid"]').val();
+			var pw = $('input[name="userpw"]').val();
+			alert(id +' '+ pw);
+
+			if(id.length < 5)
+				event.preventDefault(); // default event 제거
+		});
+
+	});
+
+	/*
+	frm.onsubmit = function(){
+		var id = $('input[name="userid"]').val();
+		var pw = $('input[name="userpw"]').val();
+		// alert(id +' '+ pw);
+
+		if(id.length < 5)
+			return false; // 서버에 전송을 취소
+	}
+	*/
+
+	// html에서 onsubmit="return call()";
+	function call(){
+		var id = $('input[name="userid"]').val();
+		var pw = $('input[name="userpw"]').val();
+		// alert(id +' '+ pw);
+
+		if(id.length < 5)
+			return false; // 서버에 전송을 취소
+	}
+
+</script>
+</body>
+</html>

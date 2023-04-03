@@ -83,6 +83,12 @@ List<EmpVO> empList = empService.selectAll();
 		float: left;
 		margin-right: 5px;
 	}
+	
+	option {
+		height: 24px;
+		line-height:20px;
+		padding: 6px 12px;
+	}
 
 </style>
 <script>
@@ -93,6 +99,18 @@ List<EmpVO> empList = empService.selectAll();
 		$('#btn1').click(func_btn1);
 		$('#btn2').click(func_btn2);
 		$("th").click(rowSelect);
+		
+		
+		var str = '';
+		var arr = ['IT_PROG', 'AD_VP', 'AD_PRES', 'FI_MGR', 'FI_ACCOUNT', 'ST_MAN'];
+		$.each(arr, function(index, item) {
+			console.log(item);
+			str += '<option>'+item+'</option>';
+		});
+		
+		$('#jobs').html(str); // html() : jQuery 함수.	innerHTML : 자바스크립트 속성
+		
+		
 	});
 	
 	function func_btn1() {
@@ -144,6 +162,13 @@ List<EmpVO> empList = empService.selectAll();
 	<div id="divBtn">
 		<button id="btn1" class="btn btn-outline-success">짝수번째 줄</button>
 		<button id="btn2" class="btn btn-outline-success">이름이 S로 시작하는 튜플</button>
+		<!-- s문자가 포함 
+		급여가 5000 이상
+		직원 번호가 홀수인 사람 선택
+		직책으로 드롭다운 메뉴 select > option -->
+		<select id="jobs">
+			
+		</select>
 	</div>
 	<div>
 		<a href="emp_insert.html" type="button" id="insertBtn" class="btn btn-outline-success">신규 직원 등록</a>

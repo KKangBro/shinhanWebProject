@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>4 jQuery</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<style>
+	#here > div {
+		border: 2px solid red;
+	}
+	img {
+		width: 300px;
+		height: 250px;
+	}
+</style>
+<script>
+	$(function() {
+
+		$('#btn8').click(function(){
+			setInterval(function(){
+				$('#myPic img').first().appendTo($('#myPic'));
+			}, 1000);
+			
+		});
+
+
+		$('#btn7').click(function(){
+			var arr = [];
+			arr.push({'name':'명수', 'address':'홍대'});
+			arr.push({'name':'준하', 'address':'여의도'});
+			arr.push({'name':'재석', 'address':'당산'});
+			arr.push({'name':'형돈', 'address':'흑석'});
+			arr.push({'name':'홍철', 'address':'대방'});
+
+			for(let i=0; i<arr.length; i++){
+				$('#here').append('<div></div>');
+			}
+
+			$('#here > div').append(function(index){
+				// console.log(index);
+				$(this).append(`<h1>${arr[index].name}</h1>`);
+				$(this).append(`<h2>${arr[index].address}</h2>`);
+			})
+
+		});
+
+		$('#btn6').click(function(){
+			$('<h1></h1>').html('appendTo').appendTo('#here');
+			$('<h1></h1>').html('prependTo').prependTo('#here');
+			$('<h1></h1>').html('insertBefore').insertBefore('#here');
+			$('<h1></h1>').html('insertAfter').insertAfter('#here');
+
+			$('#here').append('<h1>append</h1>');
+			$('#here').prepend('<h1>prepend</h1>');
+			$('#here').after('<h1>after</h1>');
+			$('#here').before('<h1>before</h1>');
+
+		});
+
+		$('#btn5').click(function(){
+			// $('#here').remove(); // 객체 자체 지우기
+			$('#here').empty(); // 내용만 지우기.. removeChild같이
+		});
+
+		$('#btn4').click(function(){
+			var str = '<ul>';
+			$('img').each(function(index, item){
+				str += `<li>${$(item).attr('src')}</li>`;
+			});
+			str += '</ul>';
+			$('#here').html(str);
+			// html() : html 태그 인식
+			// text() : html 태그도 text 취급, 단순 문자열일때 사용한다.
+		});
+
+		$('#btn3').click(function() {
+			var arr = ['red', 'blue', 'green', 'purple', 'pink'];
+
+			$('img').css('border', function(index, item) {
+				return `3px dotted ${arr[index]}`;
+			});
+		});
+
+		$('#btn2').click(function() {
+			$('img').css('width','');
+			$('img').css('height','');
+		});
+
+
+		$('#btn1').click(function() {
+			$('img').css('border', '3px solid gray');
+			
+			var obj = {
+					'width':function(index) { return (index+1)*100; },
+					'height':200};
+			$('img').css(obj);
+		});
+
+	});
+	
+</script>
+<style>
+
+</style>
+</head>
+<body>
+	<h1>jQuery.. 문서객체(DOM)를 추가, 수정</h1>
+	<button id="btn1">속성 추가</button>
+	<button id="btn2">속성 제거</button>
+	<button id="btn3">CSS</button>
+	<button id="btn4">html, text</button>
+	<button id="btn5">remove, empty</button>
+	<button id="btn6">객체 생성(동적)</button>
+	<button id="btn7">객체 생성7</button>
+	<button id="btn8">객체 이동</button>
+	<br><hr>
+	<div style="border: 5px dotted green;" id="here">
+		요기요
+	</div>
+	<div id="myPic">
+		<img src="../html5-css3-master/03/images/umbrella.jpg" alt="umbrella">
+		<img src="../html5-css3-master/03/images/fantasy.jpg" alt="fantasy">
+		<img src="../html5-css3-master/03/images/muffin.png" alt="muffin">
+		<img src="../html5-css3-master/03/images/automobile.svg" alt="automobile">
+		<img src="../html5-css3-master/03/images/kids.jpg" alt="keds">
+	</div>
+</body>
+</html>
