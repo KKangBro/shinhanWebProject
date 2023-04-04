@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(()=> {
+	var firstElement = document.getElementById("one");
+	console.log(firstElement);
+	
+	
+	document.getElementById("three").innerHTML = "귤";
+	
+	
+	var arr = ["사과", "바나나", "수박", "복숭아"];
+	console.log(arr);
+	$.each(arr, function(idx, item) {
+		console.log(item);
+	});
+	
+	
+	
+	$.ajax({
+		url:'empInsert',
+		data:{'firstName': 'kim',
+			'salary': 1000,
+			'deptid': 10 },
+		method:'post',
+		success:(result,status,xhr)=>{
+			$('#here').html(result);
+		},
+		error:()=>{}
+	});
+	
+});
+</script>
+</head>
+<body>
+	<div>
+		<h1>목록</h1>
+		<h2>식료품</h2>
+		<ul id="list">
+			<li id="one" class="hot"><em>신선한</em>무화과</li>
+			<li id="two" class="hot">잣</li>
+			<li id="three" class="hot">꿀</li>
+			<li id="four">발사믹 식초</li>
+		</ul>
+	</div>
+</body>
+</html>

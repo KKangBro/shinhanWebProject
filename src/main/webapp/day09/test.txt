@@ -1,0 +1,103 @@
+10문제
+
+$.ajax({
+	url:'job.jsp',
+	data:{'job_id': $('#job_id').val(),
+		'job_title': $('#job_title').val(),
+		'max_salary': $('#max_salary').val(),
+		'min_salary': $('#min_salary').val() },
+	method:'post',
+	success:(result,status,xhr)=>{
+		$('#here').html(result);
+	},
+	error:()=>{}
+});
+
+//--------------------
+$.noConflict();
+
+$를 jQuery로
+
+
+
+//--------------------
+var f = print.bind(obj); // 호출이 아니고 연결만 한다
+f('파라메터3'); // 함수 호출
+
+//--------------------
+html	구조적 data
+css		display
+js 		동적
+
+//--------------------
+get 방식
+post 방식
+
+
+//--------------------
+스타일 우선순위
+day3 2.html
+
+
+1. 속성 값 뒤에 !important 를 붙인 속성
+2. HTML에서 style을 직접 지정한 속성
+3. #id 로 지정한 속성
+4. .클래스, :추상클래스 로 지정한 속성
+5. 태그이름 으로 지정한 속성
+6. 상위 객체에 의해 상속된 속성
+
+//--------------------
+전역변수 지역변수
+day4 3.html
+
+
+// 호이스팅 이 뭘까?
+
+// css 선택자
+css ppt 12
+
+
+
+// callback : 행위는 내가 결정, 실행 시점은 받은 쪽에서 결정한다.
+
+
+// 클로저
+
+// 지역 변수는 지역을 떠나면 사라진다
+// 클로저를 이용하면 규칙위반 가능하다.
+// 지역 변수를 포함한 함수를 return하면 계속 유효하다
+function closureTest(b) {
+	var a = 100;
+	return function() {
+		var c = 200;
+		a + b + c + 1000;
+	};
+}
+
+function add(start) {
+	var count = start;
+	return function () {
+		count++;
+		return count;
+	};
+}
+
+/-----------------
+선언적 함수: 이름이 있는 함수
+익명 함수: 이름이 없는 함수
+내부 함수: 함수 내의 함수, 외부접근안됨.
+화살표 함수(람다식): () => {}
+callback 함수: 정의는 내가 하고, 호출은 받은 쪽에서 한다.
+				함수가 파라메터로 전달된다.
+closure: 지역 변수는 지역을 벗어나면 사용불가. 하지만 규칙위반해서 사용하고자한다.  지역 변수를 담아서 함수를 return, 지역변수를 계속 사용가능
+
+
+
+//js
+arr.forEach(function(item, idx, obj){});
+//jquery
+$.each(arr, function(idx, item, obj){});
+
+
+
+

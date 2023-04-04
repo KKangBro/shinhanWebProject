@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>0404 - 1</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+	var myName = '명수.. window의 속성';
+
+	$(function(){
+		var myName = '명수.. function의 지역 변수';
+		var obj = {'myName': 'obj_myName', 'age': 20};
+
+		$('#btn4').on('click', function() {
+			print('JavaScript');
+		});
+
+		$('#btn1').on('click', function() {
+			print.call(obj, '파라메터1');
+		});
+
+		$('#btn2').on('click', function() {
+			print.apply(obj, ['파라메터2']);
+		});
+
+		$('#btn3').on('click', function() {
+			var f = print.bind(obj); // 호출이 아니고 연결만 한다
+			f('파라메터3'); // 함수 호출
+		});
+
+		$('#btn5').on('click', function() {
+			// 서버에 요청보내기.. form 이용 or loaction.href
+			// page가 이동된다.
+			location.href = '../day02/empSelect.jsp';
+		});
+
+		$('#btn6').on('click', function() {
+			// 서버에 요청보내기.. page이동 없이 요청하고자한다.
+			// Asynchronize JavaScript And XML
+			var xhr = new XMLHttpRequest();
+			xhr.open('get', '2.html', true); // 3번째arg : 비동기 여부
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4 && xhr.status == 200){
+					$('#here').html(xhr.responseText);
+				}
+			};
+			xhr.send();
+		});
+
+		$('#btn7').on('click', function() {
+			var xhr = new XMLHttpRequest();
+			xhr.open('get', 'emp.jsp', true); // 3번째arg : 비동기 여부
+			xhr.onreadystatechange = function() {
+				if(xhr.readyState == 4 && xhr.status == 200){
+					var output = '';
+					var obj = JSON.parse(xhr.responseText);
+					output += `<input value="${obj.firstname}">`;
+					output += `<input value="${obj.age}">`;
+
+					$('#here').html(output);
+				}
+			};
+			xhr.send();
+		});
+		
+	});
+
+	function print(param){
+		$('#here').html(param + ' -- ' + this.myName);
+	}
+</script>
+<script>
+	$(function() {
+		
+		$('#btn14').on('click', function() {
+			const options = {method: 'GET', headers: {accept: 'application/json'}};
+
+			fetch('https://api.bithumb.com/public/ticker/ALL_KRW', options)
+			  .then(response => response.json()) // javascript object로 return
+			  .then(response => {
+				  //console.log(response.data);
+				  var output = '<table border="1"><tr><th>종목</th><th>시작가</th><th>종가</th></tr>';
+				  for(let key in response.data) {
+					  var obj = response.data[key];
+					  console.log(key + " : " + obj['opening_price'] + " -- " + obj.closing_price);
+					  output += `<tr><td>${key}</td>`;
+					  output += `<td>${obj['opening_price']}</td>`;
+					  output += `<td>${obj['closing_price']}</td></tr>`;
+				  }
+				  output += '</table>';
+				  $('#here').html(output);
+				  
+			  })
+			  .catch(err => console.error(err));
+		});
+		
+		$('#btn13').on('click', function() {
+			// method(요청방식) 상관없이 통합 함수
+			/* $.ajax({url: "demo_test.txt", success: function(result) {
+				$("#div1").html(result);
+			}}); */
+			
+			$.ajax({
+				url:"emp.jsp",
+				method:"post",
+				data:{"empid":$('#empid').val()},
+				success: function(result, status, xhr){
+					console.log(result, status, xhr);
+					
+					var obj = JSON.parse(result);
+					
+					var output = '';
+					output += `이름: <input value="${obj.firstname}" >`;
+					output += `급여: <input value="${obj.salary}" >`;
+
+					$('#here').html(output);
+				},
+				error: function(xhr, status, error){}
+			});
+			
+		});
+		
+		$('#btn12').on('click', function() {
+			var empid = $('#empid').val();
+			var parameter = {"empid":empid};
+			$.post('emp.jsp', parameter, function(responseData, status) {
+				console.log('load수행한 후 실행한다.');
+				var obj = JSON.parse(responseData);
+				console.log(responseData, status);
+				
+				var output = '';
+				output += `이름: <input value="${obj.firstname}" >`;
+				output += `급여: <input value="${obj.salary}" >`;
+
+				$('#here').html(output);
+			});
+		});
+		
+		$('#btn11').on('click', function() {
+			var empid = $('#empid').val();
+			$.get('emp.jsp?empid='+empid, function(responseData, status) {
+				console.log('load수행한 후 실행한다.');
+				var obj = JSON.parse(responseData);
+				console.log(responseData, status);
+				
+				var output = '';
+				output += `이름: <input value="${obj.firstname}" >`;
+				output += `급여: <input value="${obj.salary}" >`;
+
+				$('#here').html(output);
+			});
+		});
+		
+		$('#btn10').on('click', function() {
+			$('#here').load('emp.jsp', {'empid':200}, function() {
+				console.log('load수행한 후 실행한다.');
+			});
+		});
+		
+		$('#btn9').on('click', function() {
+			// $(selector).load(URL,data,callback);
+			// 가장 단순한 ajax method.. 가공없이 그대로 사용할때
+			$('#here').load('2.html', {}, function() {
+				console.log('load수행한 후 실행한다.');
+			});
+		});
+		
+		$('#btn8').on('click', function() {
+			var empid = $('#empid').val();
+			var xhr = new XMLHttpRequest();
+			xhr.open('get', `emp.jsp?empid=${empid}`, true);
+			xhr.onreadystatechange = function() {
+				
+				if(xhr.readyState != 4 || xhr.status != 200) return;
+					
+				var str = xhr.responseText;
+				console.log(str);
+				var obj = JSON.parse(str);
+
+				var output = '';
+				output += `이름: <input value="${obj.firstname}" >`;
+				output += `급여: <input value="${obj.salary}" >`;
+
+				$('#here').html(output);
+			};
+			xhr.send();
+			
+		});
+	});
+
+</script>
+</head>
+<body>
+	<h1>jQuery 연습</h1>
+	<button id="btn1">call</button>
+	<button id="btn2">apply</button>
+	<button id="btn3">bind</button>
+	<button id="btn4">함수 호출</button>
+	<button id="btn5">전통적인 요청 보내기</button>
+	<button id="btn6">JS으로 Ajax</button>
+	<button id="btn7">JS으로 Ajax</button><br>
+	<input type="number" value="100" id="empid">
+	<button id="btn8">직원 정보 가져오기</button><br>
+	<button id="btn9">jQuery AJAX(load)</button>
+	<button id="btn10">jQuery AJAX(load)</button>
+	<button id="btn11">jQuery AJAX(get)</button>
+	<button id="btn12">jQuery AJAX(post)</button><br>
+	<button id="btn13">jQuery AJAX(ajax)</button>
+	<button id="btn14">fetch함수 사용</button>
+	<div id="here">여기</div>
+</body>
+</html>
