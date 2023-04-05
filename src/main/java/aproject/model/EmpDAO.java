@@ -54,7 +54,7 @@ public class EmpDAO {
 						phone_number,
 						hire_date,
 						job_id,
-						f_tax(salary) salary,
+						salary,
 						commission_pct,
 						manager_id,
 						department_id
